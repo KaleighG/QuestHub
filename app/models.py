@@ -8,3 +8,5 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(upload_to='media', blank=True, null=True)
     friends = models.ManyToManyField('self', symmetrical=True)
     bio = models.CharField(max_length=250, null=True, blank=True)
+
+    
