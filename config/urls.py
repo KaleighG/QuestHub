@@ -20,12 +20,13 @@ from django.contrib.auth.views import LoginView, LogoutView
 from app.views import *
 from django.conf import settings 
 from django.conf.urls.static import static
-from app.views import home, profile, usersettings
+from app.views import home, profile, usersettings, messages
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('', home, name='home'),
     path('profile/', profile, name="profile"),
+    path('messages/', messages, name="message"),
     path('login/', LoginView.as_view(template_name="login.html"), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"), 
     path('register/', register, name="register"),

@@ -3,8 +3,13 @@ from app.form import *
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
 def home(request):
     return render(request, 'home.html')
+
+@login_required
+def messages(request):
+    return render(request, "message.html")
 
 @login_required
 def profile(request):
