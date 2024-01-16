@@ -99,13 +99,14 @@
 
       .sidebar i {
         color: white;
-        height: 60px;
+        height: 100px;
         line-height: 60px;
-        min-width: 50px;
-        font-size: 25px;
+        min-width: 60px;
+        font-size: 35px;
         text-align: left;
       }
 
+      
       .sidebar .nav-list {
         margin-top: 20px;
         height: 100%;
@@ -113,9 +114,17 @@
 
       .sidebar li {
         position: relative;
-        margin: 8px 0;
+        margin: 15px 0;
         list-style: none;
         color: white;
+      }
+
+      .sidebar li .link_name{
+        opacity: 0;
+      }
+
+      .sidebar li:hover .link_name{
+        opacity: 1;
       }
 
       .sidebar li .tooltip {
@@ -123,7 +132,7 @@
         top: -20px;
         left: calc(100% + 15px);
         z-index: 3;
-        background-color: black;
+        background-color: red;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
         padding: 6px 14px;
         font-size: 15px;
@@ -164,7 +173,6 @@
       }
 
       .sidebar.open input {
-        padding: 0 20px 0 50px;
         width: 100%;
       }
 
@@ -344,7 +352,7 @@
             <i class="bx bx-search" id="search_icon"></i>
             <input type="text" placeholder="Search..." />
           </a>
-          <span class="tooltip">Search</span>
+          <span class="tooltip">yo</span>
         </li>
         <li>
           <a href="/">
@@ -394,7 +402,7 @@
           <div class="profile_details">
             <img src="profile.jpeg" alt="profile image" />
             <div class="profile_content">
-              <div class="name">Garcia</div>
+              <div class="name">{{ user }}</div>
               <div class="designation">Admin</div>
             </div>
           </div>
