@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  {% if messages %} {% for message in messages %} {% if message.sender != request.user %}
+  <div
+    class="col text-start"
+    style="background-color: rgba(122,122,122,.5); width:fit-content; padding: 2px; border-radius: 10px;"
+  >
+    {{ message.message }}
+  </div>
+  {% else %}
+  <div
+    class="col text-end bg-primary"
+    style="padding: 2px; border-radius: 10px; width: fit-content; position: relative; left: 1260px;"
+  >
+  
+    {{ message.message }}
+  </div>
+  {% endif %} {% endfor %} {% endif %}
+
+  <div class="container-fluid">
+    <form method="POST" action="{% url "send_message" recipientid %}" class="form">
+      {% csrf_token %}
+      <label class="for-label">Message</label>
+      <input type="text" name="message" class="form-control"/>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}
