@@ -1,5 +1,18 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Profile{% endblock %} {% block content %}
 <style>
+<<<<<<< HEAD
+  .container .mt-5 {
+    position: absolute;
+  }
+</style>
+<div class="container mt-5">
+  <img src="{{request.user.profile.profile_pic.url}}" alt="profile pic" />
+</div>
+<div class="container mt-5">{{ request.user }}</div>
+<div class="container mt-5">{{ request.user.profile.role }}</div>
+<div class="container mt-5">{{ request.user.profile.bio }}</div>
+
+=======
   .friends-container {
     text-align: center;
     margin: 5%;
@@ -257,4 +270,5 @@
   {% endif %}
 </div>
 
+>>>>>>> f45fc5155e7090fef6a5e6294977be59c3a7aa15
 {% endblock %}

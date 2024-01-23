@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from app.models import *
 from django.db.models import Q
+
 # Create your views here.
 
 
@@ -116,6 +117,7 @@ def delete_message(request, recipient_id):
         message.delete()
     return redirect('message')
 
+
 def send_friend_request(request, user_id):
     recipient = UserProfile.objects.get(user__id=user_id)
     request.user.profile.send_friend_request(recipient.user)
@@ -136,15 +138,5 @@ def decline_friend_request(request, user_id):
 def remove_friend(request, friend_id):
     friendObj = Friend.objects.get(id=friend_id)
     friendObj.delete()
-    return redirect("userprofile", user_id=request.user.id)
+    return redirect("friends")
 
-def general(request):
-    if request.method == "POST":
-        request.user.username = request.POST.get("username")
-        request.user.save()
-        picture = request.FILES.get("profile_pic")
-        user_profile = request.user.profile
-        user_profile.profile_pic = picture
-        user_profile.save()
-
-    return redirect('usersettings') 
