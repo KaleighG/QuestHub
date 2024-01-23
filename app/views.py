@@ -39,7 +39,7 @@ def profile(request, user_id):
     requests = Friend_Request.objects.filter(recipient=request.user, status='pending')
     requests_ids = [request.sender for request in requests]
     profiles = UserProfile.objects.filter(user__in=requests_ids)
-    search_people = UserProfile.objects.all()
+    search_people = UserProfile.objects.exclude(user__id=user_id)
     user_profile = UserProfile.objects.get(user__id=user_id)
     return render(request, "profile.html", {"user_profile": user_profile, "friends":friends, "profiles": profiles, "search_people":search_people})
 
