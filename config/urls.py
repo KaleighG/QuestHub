@@ -20,7 +20,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from app.views import *
 from django.conf import settings
 from django.conf.urls.static import static
-from app.views import *
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -35,7 +34,7 @@ urlpatterns = [
     path("create_post", create_post, name="create_post"),
     path("send_message/<int:recipient_id>/", send_message, name="send_message"),
     path("delete_message/<int:recipient_id>/", delete_message, name="delete_message"),
-        path(
+    path(
         "send_friend_request/<int:user_id>/",
         send_friend_request,
         name="send_friend_request",
@@ -52,5 +51,6 @@ urlpatterns = [
     ),
     path("remove_friend/<int:friend_id>/", remove_friend, name="remove_friend"),
     path("admin/", admin.site.urls),
+    path("general/", general, name="general"),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% load static %}{% block title %}Settings{% endblock %} 
-{% block content %}
+{% extends 'base.html' %} {% load static %}{% block title %}Settings{% endblock %} {% block content %}
 <style>
   body {
     margin-top: 20px;
@@ -127,181 +126,253 @@
             <div class="tab-pane fade active show" id="account-general">
 
               <div class="card-body media align-items-center">
-                <img id="userImage" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-80">
+                <img
+                  id="userImage"
+                  src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                  alt=""
+                  class="d-block ui-w-80"
+                />
                 <div class="media-body ml-4">
                   <label for="fileInput" class="btn btn-outline-primary">
                     Upload new photo
-                    <input id="fileInput" type="file" class="account-settings-fileinput" onchange="updateImage(this)">
-                  </label> &nbsp;
-                  <button type="button" class="btn btn-default md-btn-flat" onclick="resetImage()">Reset</button>
-              
-                  <div class="text-light small mt-1">Allowed JPG, GIF, or PNG. Max size of 800K</div>
+                    <input
+                      id="fileInput"
+                      type="file"
+                      class="account-settings-fileinput"
+                      onchange="updateImage(this)"
+                      name="profile_pic"
+                    />
+                  </label>
+                  &nbsp;
+                  <button
+                    type="button"
+                    class="btn btn-default md-btn-flat"
+                    onclick="resetImage()"
+                  >
+                    Reset
+                  </button>
+
+                  <div class="text-light small mt-1">
+                    Allowed JPG, GIF, or PNG. Max size of 800K
+                  </div>
                 </div>
               </div>
-              <hr class="border-light m-0">
+              <hr class="border-light m-0" />
 
               <div class="card-body">
                 <div class="form-group mb-4">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-control mb-6" placeholder="{{request.user}}">
+                  <label class="form-label">Username</label>
+                  <input
+                    type="text"
+                    class="form-control mb-6"
+                    placeholder="{{request.user}}"
+                    name="username"
+                  />
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Role</label>
-                    <input type="text" class="form-control" placeholder="{{request.user.profile.role}}">
+                  <label class="form-label">Role</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="{{request.user.profile.role}}"
+                  />
                 </div>
-            </div>
-            
+              </div>
 
-            </div>
-            <div class="tab-pane fade" id="account-change-password">
-              <div class="card-body pb-2">
-                <div class="form" action="{% url 'changepassword' %}" method="POST">
-                  <div class="form-group">
-                    <label class="form-label">Current password</label>
-                    <input type="password" id="id_old_password" class="form-control">
-                  </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="account-change-password">
+            <div class="card-body pb-2">
+              <div
+                class="form"
+                action="{% url 'changepassword' %}"
+                method="POST"
+              >
+                <div class="form-group">
+                  <label class="form-label">Current password</label>
+                  <input
+                    type="password"
+                    id="id_old_password"
+                    class="form-control"
+                  />
+                </div>
 
-                  <div class="form-group">
-                    <label class="form-label">New password</label>
-                    <input type="password" id="id_new_password" class="form-control">
-                  </div>
+                <div class="form-group">
+                  <label class="form-label">New password</label>
+                  <input
+                    type="password"
+                    id="id_new_password"
+                    class="form-control"
+                  />
+                </div>
 
-                  <div class="form-group">
-                    <label class="form-label">Repeat new password</label>
-                    <input id="id_new_password2" type="password" class="form-control">
-                  </div>
-                  <button class="btn btn-primary" type="submit">Reset Password</button>
-                </div> 
+                <div class="form-group">
+                  <label class="form-label">Repeat new password</label>
+                  <input
+                    id="id_new_password2"
+                    type="password"
+                    class="form-control"
+                  />
+                </div>
+                <button class="btn btn-primary" type="submit">
+                  Reset Password
+                </button>
               </div>
             </div>
-            <div class="tab-pane fade" id="account-info">
-              <div class="card-body pb-2">
-
-                <div class="form-group">
-                  <label class="form-label">Bio</label>
-                  <textarea class="form-control" rows="5">{{ request.user.user_set.bio }}</textarea>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Birthday</label>
-                  <input type="text" class="form-control" value="May 3, 1995">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Country</label>
-                  <select class="custom-select">
-                    <option>USA</option>
-                    <option selected="">Canada</option>
-                    <option>UK</option>
-                    <option>Germany</option>
-                    <option>France</option>
-                  </select>
-                </div>
-
-
+          </div>
+          <div class="tab-pane fade" id="account-info">
+            <div class="card-body pb-2">
+              <div class="form-group">
+                <label class="form-label">Bio</label>
+                <textarea class="form-control" rows="5">
+{{ request.user.user_set.bio }}</textarea
+                >
               </div>
-              <hr class="border-light m-0">
-              <div class="card-body pb-2">
-
-                <h6 class="mb-4">Contacts</h6>
-                <div class="form-group">
-                  <label class="form-label">Phone</label>
-                  <input type="text" class="form-control" value="+0 (123) 456 7891">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Website</label>
-                  <input type="text" class="form-control" value="">
-                </div>
-
+              <div class="form-group">
+                <label class="form-label">Birthday</label>
+                <input type="text" class="form-control" value="May 3, 1995" />
               </div>
-      
-            </div>
-            <div class="tab-pane fade" id="account-social-links">
-              <div class="card-body pb-2">
-
-                <div class="form-group">
-                  <label class="form-label">Twitter</label>
-                  <input type="text" class="form-control" value="https://twitter.com/user">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Facebook</label>
-                  <input type="text" class="form-control" value="https://www.facebook.com/user">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Google+</label>
-                  <input type="text" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">LinkedIn</label>
-                  <input type="text" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Instagram</label>
-                  <input type="text" class="form-control" value="https://www.instagram.com/user">
-                </div>
-
+              <div class="form-group">
+                <label class="form-label">Country</label>
+                <select class="custom-select">
+                  <option>USA</option>
+                  <option selected="">Canada</option>
+                  <option>UK</option>
+                  <option>Germany</option>
+                  <option>France</option>
+                </select>
               </div>
             </div>
-            <div class="tab-pane fade" id="account-connections">
-              <div class="card-body">
-                <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
+            <hr class="border-light m-0" />
+            <div class="card-body pb-2">
+              <h6 class="mb-4">Contacts</h6>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="+0 (123) 456 7891"
+                />
               </div>
-              <hr class="border-light m-0">
-              <div class="card-body">
-                <h5 class="mb-2">
-                  <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Remove</a>
-                  <i class="ion ion-logo-google text-google"></i>
-                  You are connected to Google:
-                </h5>
-                nmaxwell@mail.com
-              </div>
-              <hr class="border-light m-0">
-              <div class="card-body">
-                <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
-              </div>
-              <hr class="border-light m-0">
-              <div class="card-body">
-                <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong></button>
+              <div class="form-group">
+                <label class="form-label">Website</label>
+                <input type="text" class="form-control" value="" />
               </div>
             </div>
-            <div class="tab-pane fade" id="account-notifications">
-              <div class="card-body pb-2">
-
-                <h6 class="mb-4">Activity</h6>
-
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input" checked="">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Email me when someone comments on my article</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input" checked="">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Email me when someone answers on my forum thread</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Email me when someone follows me</span>
-                  </label>
-                </div>
+          </div>
+          <div class="tab-pane fade" id="account-social-links">
+            <div class="card-body pb-2">
+              <div class="form-group">
+                <label class="form-label">Twitter</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="https://twitter.com/user"
+                />
               </div>
-              <hr class="border-light m-0">
-              <div class="card-body pb-2">
+              <div class="form-group">
+                <label class="form-label">Facebook</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="https://www.facebook.com/user"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Google+</label>
+                <input type="text" class="form-control" value="" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">LinkedIn</label>
+                <input type="text" class="form-control" value="" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Instagram</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="https://www.instagram.com/user"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="account-connections">
+            <div class="card-body">
+              <button type="button" class="btn btn-twitter">
+                Connect to <strong>Twitter</strong>
+              </button>
+            </div>
+            <hr class="border-light m-0" />
+            <div class="card-body">
+              <h5 class="mb-2">
+                <a
+                  href="javascript:void(0)"
+                  class="float-right text-muted text-tiny"
+                  ><i class="ion ion-md-close"></i> Remove</a
+                >
+                <i class="ion ion-logo-google text-google"></i>
+                You are connected to Google:
+              </h5>
+              nmaxwell@mail.com
+            </div>
+            <hr class="border-light m-0" />
+            <div class="card-body">
+              <button type="button" class="btn btn-facebook">
+                Connect to <strong>Facebook</strong>
+              </button>
+            </div>
+            <hr class="border-light m-0" />
+            <div class="card-body">
+              <button type="button" class="btn btn-instagram">
+                Connect to <strong>Instagram</strong>
+              </button>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="account-notifications">
+            <div class="card-body pb-2">
+              <h6 class="mb-4">Activity</h6>
 
-                <h6 class="mb-4">Application</h6>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" checked="" />
+                  <span class="switcher-indicator">
+                    <span class="switcher-yes"></span>
+                    <span class="switcher-no"></span>
+                  </span>
+                  <span class="switcher-label"
+                    >Email me when someone comments on my article</span
+                  >
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" checked="" />
+                  <span class="switcher-indicator">
+                    <span class="switcher-yes"></span>
+                    <span class="switcher-no"></span>
+                  </span>
+                  <span class="switcher-label"
+                    >Email me when someone answers on my forum thread</span
+                  >
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" />
+                  <span class="switcher-indicator">
+                    <span class="switcher-yes"></span>
+                    <span class="switcher-no"></span>
+                  </span>
+                  <span class="switcher-label"
+                    >Email me when someone follows me</span
+                  >
+                </label>
+              </div>
+            </div>
+            <hr class="border-light m-0" />
+            <div class="card-body pb-2">
+              <h6 class="mb-4">Application</h6>
 
                 <div class="form-group">
                   <label class="switcher">
@@ -351,98 +422,107 @@
   <script>
   var selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
 
-    function updateImage(input) {
-      var reader = new FileReader();
+  function updateImage(input) {
+    var reader = new FileReader();
 
-      reader.onload = function (e) {
-        document.getElementById("userImage").src = e.target.result;
+    reader.onload = function (e) {
+      document.getElementById("userImage").src = e.target.result;
 
-        // Update the global variable with the selected image URL
-        selectedImageUrl = e.target.result;
-      };
+      // Update the global variable with the selected image URL
+      selectedImageUrl = e.target.result;
+    };
 
-      reader.readAsDataURL(input.files[0]);
-    }
+    reader.readAsDataURL(input.files[0]);
+  }
 
-    function resetImage() {
-      // Reset the image to the default one
-      document.getElementById("userImage").src = "https://bootdey.com/img/Content/avatar/avatar1.png";
-      // Reset the file input (optional)
-      document.getElementById("fileInput").value = "";
+  function resetImage() {
+    // Reset the image to the default one
+    document.getElementById("userImage").src =
+      "https://bootdey.com/img/Content/avatar/avatar1.png";
+    // Reset the file input (optional)
+    document.getElementById("fileInput").value = "";
 
-      // Reset the global variable to the default image URL
-      selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-      // Function to show/hide tabs
-      function showTab(tabId) {
-        document.querySelectorAll('.tab-pane').forEach(function (tab) {
-          tab.classList.remove('show', 'active');
-        });
-  
-        var activeTab = document.querySelector(tabId);
-        if (activeTab) {
-          activeTab.classList.add('show', 'active');
-        }
+    // Reset the global variable to the default image URL
+    selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Function to show/hide tabs
+    function showTab(tabId) {
+      document.querySelectorAll(".tab-pane").forEach(function (tab) {
+        tab.classList.remove("show", "active");
+      });
+
+      var activeTab = document.querySelector(tabId);
+      if (activeTab) {
+        activeTab.classList.add("show", "active");
       }
-  
-      // Event listener for clicking on tab links
-      document.querySelectorAll('.account-settings-links .list-group-item').forEach(function (button) {
-        button.addEventListener('click', function (event) {
+    }
+
+    // Event listener for clicking on tab links
+    document
+      .querySelectorAll(".account-settings-links .list-group-item")
+      .forEach(function (button) {
+        button.addEventListener("click", function (event) {
           event.preventDefault();
-          var tabId = this.getAttribute('href');
+          var tabId = this.getAttribute("href");
           showTab(tabId);
         });
       });
-  
-      // Save changes and cancel buttons
-      var saveChangesBtn = document.getElementById('saveChangesBtn');
-      if (saveChangesBtn) {
-          saveChangesBtn.addEventListener('click', function () {
-              // Get the updated data from the form
-              var username = document.querySelector('#account-general input[name="username"]').value;
-              var email = document.querySelector('#account-general input[name="email"]').value;
-              var company = document.querySelector('#account-general input[name="company"]').value;
-              var image = document.querySelector()
-              // Other fields can be retrieved in a similar way
 
-              // Create a data object to send to the server
-              var data = {
-                  username: username,
-                  email: email,
-                  company: company,
-                  // Add other fields as needed
-              };
+    // Save changes and cancel buttons
+    var saveChangesBtn = document.getElementById("saveChangesBtn");
+    if (saveChangesBtn) {
+      saveChangesBtn.addEventListener("click", function () {
+        // Get the updated data from the form
+        var username = document.querySelector(
+          '#account-general input[name="username"]'
+        ).value;
+        var email = document.querySelector(
+          '#account-general input[name="email"]'
+        ).value;
+        var company = document.querySelector(
+          '#account-general input[name="company"]'
+        ).value;
+        var image = document.querySelector();
+        // Other fields can be retrieved in a similar way
 
-              // Send the updated data to the server using AJAX
-              // Adjust the URL to match your Django view for profile update
-              fetch('/update_profile/', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      // Include any additional headers if required
-                  },
-                  body: JSON.stringify(data),
-              })
-                  .then(response => response.json())
-                  .then(result => {
-                      console.log('Profile updated successfully:', result);
-                      // You can handle the success response as needed
-                  })
-                  .catch(error => {
-                      console.error('Error updating profile:', error);
-                      // Handle the error as needed
-                  });
+        // Create a data object to send to the server
+        var data = {
+          username: username,
+          email: email,
+          company: company,
+          // Add other fields as needed
+        };
+
+        // Send the updated data to the server using AJAX
+        // Adjust the URL to match your Django view for profile update
+        fetch("/update_profile/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Include any additional headers if required
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            console.log("Profile updated successfully:", result);
+            // You can handle the success response as needed
+          })
+          .catch((error) => {
+            console.error("Error updating profile:", error);
+            // Handle the error as needed
           });
-      }
-    
-      var cancelBtn = document.getElementById('cancelBtn');
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', function () {
-          // Add your cancel logic here
-          console.log('Cancel');
-        });
-      }
-    });
-  </script>
+      });
+    }
+
+    var cancelBtn = document.getElementById("cancelBtn");
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", function () {
+        // Add your cancel logic here
+        console.log("Cancel");
+      });
+    }
+  });
+</script>
 {% endblock %}
