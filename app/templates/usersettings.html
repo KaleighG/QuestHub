@@ -167,12 +167,15 @@
             >
               {% csrf_token %}
               <div class="card-body media align-items-center">
+                {% if request.user.profile.profile_pic %}
                 <img
                   id="userImage"
-                  src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                  src={{ request.user.profile.profile_pic.url }}
                   alt=""
                   class="d-block ui-w-80"
                 />
+                {% endif %}
+                
                 <div class="media-body ml-4">
                   <label for="fileInput" class="btn btn-outline-primary">
                     Upload new photo
