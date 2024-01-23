@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from app.form import *
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from app.models import *
 from django.db.models import Q
-
 # Create your views here.
 
 
@@ -126,16 +125,26 @@ def send_friend_request(request, user_id):
 def accept_friend_request(request, user_id):
     friend_request = Friend_Request.objects.get(sender=user_id, recipient=request.user)
     friend_request.recipient.profile.accept_friend_request(friend_request)
-    return redirect("friends")
+    return redirect("userprofile", user_id=request.user.id)
 
 
 def decline_friend_request(request, user_id):
     friend_request = Friend_Request.objects.get(sender=user_id, recipient=request.user)
     request.user.profile.decline_friend_request(friend_request)
-    return redirect("friends")
+    return redirect("userprofile", user_id=request.user.id)
 
 def remove_friend(request, friend_id):
     friendObj = Friend.objects.get(id=friend_id)
     friendObj.delete()
-    return redirect("friends")
+    return redirect("userprofile", user_id=request.user.id)
 
+def general(request):
+    if request.method == "POST":
+        request.user.username = request.POST.get("username")
+        request.user.save()
+        picture = request.FILES.get("profile_pic")
+        user_profile = request.user.profile
+        user_profile.profile_pic = picture
+        user_profile.save()
+
+    return redirect('usersettings') 

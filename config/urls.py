@@ -52,5 +52,6 @@ urlpatterns = [
     ),
     path("remove_friend/<int:friend_id>/", remove_friend, name="remove_friend"),
     path("admin/", admin.site.urls),
+    path("general/", general, name="general"),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
