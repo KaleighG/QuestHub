@@ -9,7 +9,9 @@
         {% for post in posts %}
           <div class="col-lg-4 mb-4">
             <div class="card bg-dark text-white">
-              <img src="{{ post.image }}" class="card-img-top" alt="Post Image">
+              {% if post.image %}
+              <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
+              {% endif %}     
               <div class="card-body">
                 <p class="card-text">{{ post.creator }}</p>
                 <div class="post-caption" data-full-caption="{{ post.caption }}">

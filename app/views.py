@@ -4,13 +4,14 @@ from app.form import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
+from app.models import *
 
 # Create your views here.
 
 
 def home(request):
     posts = Post.objects.all()
-    return render(request, 'home.html', {'posts': posts})
+    return render(request, "home.html", {"posts": posts})
 
 
 @login_required
@@ -21,7 +22,8 @@ def messages(request):
 def profile(request):
     # Get the profile of the currently logged-in user
     user_profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'profile.html', {'user_profile': user_profile})
+    return render(request, "profile.html", {"user_profile": user_profile})
+
 
 def register(request):
     if request.method == "POST":
@@ -77,4 +79,8 @@ def send_message(request, recipient_id):
             message=request.POST.get("message"),
         )
         return redirect("send_message", recipient_id=recipient_id)
-    return render(request, "send_message.html", {"messages": messages, "recipientid":recipient_id})
+    return render(
+        request,
+        "send_message.html",
+        {"messages": messages, "recipientid": recipient_id},
+    )
