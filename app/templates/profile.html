@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Profile{% endblock
-%} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Profile{% endblock %} {% block content %}
 <style>
   .friends-container {
     text-align: center;
@@ -41,11 +40,14 @@
     {% endif %}
 
     <div class="container mt-5">
-      <img
+        {% if user_profile.profile_pic %}
+        <img
         src="{{ user_profile.profile_pic.url }}"
         alt="profile pic"
         style="height: 350px; width: 350px; border-radius: 50%"
       />
+        {% endif %}
+      
     </div>
     <div class="container mt-5">{{ user_profile.role }}</div>
     <div class="container mt-5">{{ user_profile.bio }}</div>
