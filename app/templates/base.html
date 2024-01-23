@@ -375,7 +375,7 @@
           </a>
           <span class="tooltip">Dashboard</span>
         </li>
-        {% if request.user.is_authenticaed %}
+        {% if request.user.is_authenticated %}
           <li>
             <a href="{% url "userprofile" request.user.id %}">
               <i class="bx bx-user"></i>
