@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from app.form import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.db.models import Q
 from app.models import *
 
 # Create your views here.
@@ -11,7 +10,14 @@ from app.models import *
 
 def home(request):
     posts = Post.objects.all()
+    
+    if request.method == "POST":
+        searched = request.POST.get('searched')
+        if searched:
+            posts = Post.objects.filter(caption__icontains=searched)
+        
     return render(request, "home.html", {"posts": posts})
+
 
 
 @login_required

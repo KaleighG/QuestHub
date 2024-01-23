@@ -338,7 +338,6 @@
         width: calc(100% - 250px);
       }
     </style>
-
     <title>{% block title %}{% endblock %} | QuestHub</title>
   </head>
   <body>
@@ -350,11 +349,13 @@
       </div>
       <ul class="nav-list">
         <li>
-          <a href="#">
-            <i class="bx bx-search" id="search_icon"></i>
-            <input type="text" placeholder="Search..." />
-          </a>
-          <span class="tooltip">yo</span>
+          <form class="d-flex" method=POST action-"{% url 'home' %}">
+            {% csrf_token %}
+            <a href="{% url 'home' %}">
+                <i class="bx bx-search" id="search_icon"></i>
+                <input type="text"  name="searched"/>
+            </a>
+          </form>
         </li>
         <li>
           <a href="/">
@@ -404,8 +405,8 @@
           <div class="profile_details">
             <img src="profile.jpeg" alt="profile image" />
             <div class="profile_content">
-              <div class="name">{{ user }}</div>
-              <div class="designation">Admin</div>
+              <div class="name">{{ user_profile.user }}</div>
+              <div class="designation">{{ user_profile.role }}</div>
             </div>
           </div>
           <form action="{% url 'logout' %}" method="POST">
