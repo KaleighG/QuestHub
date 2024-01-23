@@ -34,5 +34,6 @@ urlpatterns = [
     path("changepassword/", changepassword, name="changepassword"),
     path("create_post", create_post, name="create_post"),
     path("send_message/<int:recipient_id>/", send_message, name="send_message"),
+    path("delete_message/<int:recipient_id>/", delete_message, name="delete_message"),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

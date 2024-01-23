@@ -161,7 +161,7 @@
       .sidebar.open li .tooltip {
         display: none;
       }
-
+      
       .sidebar input {
         font-size: 15px;
         font-weight: 400;
@@ -172,6 +172,22 @@
         border-radius: 5px;
         background-color: transparent;
         transition: all 0.5s ease;
+        opacity: 0
+    
+      }
+
+      .sidebar.open input {
+        font-size: 15px;
+        font-weight: 400;
+        outline: none;
+        height: 35px;
+        width: 35px;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.5s ease;
+        color: white;
+        opacity: 1;
+    
       }
 
       .sidebar input::placeholder {
@@ -356,10 +372,10 @@
         <li>
           <form class="d-flex" method=POST action-"{% url 'home' %}">
             {% csrf_token %}
-            <a href="{% url 'home' %}">
+            
                 <i class="bx bx-search" id="search_icon"></i>
-                <input type="text"  name="searched"/>
-            </a>
+                <input type="text" placeholder="Search posts..." name="searched"/>
+            
           </form>
         </li>
         <li>

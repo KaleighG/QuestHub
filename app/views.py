@@ -4,25 +4,35 @@ from app.form import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from app.models import *
+from django.db.models import Q
 
 # Create your views here.
 
 
 def home(request):
     posts = Post.objects.all()
-    
+
     if request.method == "POST":
-        searched = request.POST.get('searched')
+        searched = request.POST.get("searched")
         if searched:
             posts = Post.objects.filter(caption__icontains=searched)
-        
-    return render(request, "home.html", {"posts": posts})
 
+    return render(request, "home.html", {"posts": posts})
 
 
 @login_required
 def messages(request):
-    return render(request, "message.html")
+    messages = Message.objects.filter(
+        Q(sender=request.user) | Q(recipient=request.user)
+    ).order_by("-date")
+    latest_messages = {}
+    for message in messages:
+        other_user = (
+            message.recipient if message.sender == request.user else message.sender
+        )
+        if other_user not in latest_messages:
+            latest_messages[other_user] = message
+    return render(request, "message.html", {"messages": latest_messages})
 
 
 def profile(request):
@@ -92,3 +102,14 @@ def send_message(request, recipient_id):
         "send_message.html",
         {"messages": messages, "recipientid": recipient_id},
     )
+
+
+def delete_message(request, recipient_id):
+    recipient = User.objects.get(id=recipient_id)
+    messages = Message.objects.filter(
+        Q(sender=request.user, recipient=recipient)
+        | Q(sender=recipient, recipient=request.user)
+    )
+    for message in messages:
+        message.delete()
+    return redirect('message')
