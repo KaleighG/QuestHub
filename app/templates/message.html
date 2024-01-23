@@ -1,16 +1,56 @@
-{% extends 'base.html' %} {% block content %}
-<div>messages</div>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+  .container-fluid {
+    padding: 20px;
+  }
+
+  
+
+  .card {
+    color: black;
+    font-family: "Bubblegum Sans", cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease; /* Add transition for smooth color change */
+    background-image: url('{% static "images/parch.jpg" %}');
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    color: greenyellow; /* Change the color to your desired color */
+
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    color: #555;
+  }
+
+  .btn-danger {
+    margin-top: 10px;
+  }
+</style>
+
 <div class="container-fluid">
   <div class="row">
     {% for other_user, message in messages.items %}
-    <a
-      href="{% url 'send_message' other_user.id %}"
-      class="link text-decoration-none"
-    >
+    <a href="{% url 'send_message' other_user.id %}" class="link text-decoration-none">
       <div class="card">
         <div class="card-body">
-          <div class="card-title" style="color: black;"><b>{{ other_user }}</b></div>
-          <div class="card-text" style="color: black;">{{ message }}</div>
+          <div class="card-title"><b>{{ other_user }}</b></div>
+          <div class="card-text">{{ message }}</div>
           <a href="{% url "delete_message" other_user.id %}" class="btn btn-danger">Delete Message</a>
         </div>
       </div>

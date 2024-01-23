@@ -1,35 +1,61 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Profile{% endblock %} {% block content %}
 <style>
-  .friends-container {
-    text-align: center;
-    margin: 5%;
-    width: 45%;
-    padding-top: 2%;
-    border-radius: 2%;
-    background-image: url('{% static "images/parch.jpg" %}');
-  }
-  .p-container {
-    text-align: center;
-    margin: 5%;
-    width: 60%;
-    padding-top: 2%;
-    border-radius: 2%;
-    background-image: url('{% static "images/parch.jpg" %}');
-  }
-  .container .mt-5 {
-    position: absolute;
-  }
+    .friends-container {
+      text-align: center;
+      margin: 5%;
+      width: 45%;
+      padding-top: 2%;
+      border-radius: 2%;
+      color: black;
+      font-family: "Bubblegum Sans", cursive;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      background-image: url('{% static "images/parch.jpg" %}');
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+    }
 
-  .profile-container {
-    display: flex;
-    justify-content: space-between;
-  }
+    .user_bio .user_role {
+        padding-bottom: 5%;
+    }
 
-  .user_name {
-    color: black;
-    font-family: "Bubblegum Sans", cursive;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
+    .p-container {
+      text-align: center;
+      margin: 5%;
+      width: 60%;
+      padding-top: 2%;
+      border-radius: 2%;
+      background-image: url('{% static "images/parch.jpg" %}');
+    }
+
+    .card{
+      padding: 10px;
+      margin: 10px
+      background-color: grey;
+    }
+
+    .container .mt-5 {
+      position: absolute;
+    }
+
+    .profile-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .user_name, .friends-links a {
+      color: black;
+      font-family: "Bubblegum Sans", cursive;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      transition: color 0.3s ease; /* Add transition for smooth color change */
+    }
+
+    .user_name:hover, .friends-links a:hover {
+      color: red; /* Change color to red on hover */
+    }
+
+    .d-flex {
+      text-align: center;
+    }
 </style>
 {% if user_profile.profile_pic %}
 <div class="profile-container">
@@ -49,8 +75,11 @@
         {% endif %}
       
     </div>
-    <div class="container mt-5">{{ user_profile.role }}</div>
-    <div class="container mt-5">{{ user_profile.bio }}</div>
+    <div class="user_role"><strong>{{ user_profile.role }}</strong></div>
+    <div class="user_bio">
+        <h3 class="user_name">Bio</h3>
+        {{ user_profile.bio }}
+    </div>
   </div>
   {% if user.is_authenticated and user == user_profile.user%}
   <div class="friends-container">
@@ -65,6 +94,7 @@
     <a
       href="#friend-request"
       class="list-group-item list-group-item-action active link text-decoration-none mt-2"
+      style="background-color: grey"
       id="list-friend-request-list"
       data-bs-toggle="list"
       role="tab"
@@ -74,6 +104,8 @@
     <a
       href="#all-friends"
       class="list-group-item list-group-item-action link text-decoration-none mt-2"
+      style="background-color: grey"
+
       id="list-all-friends-list"
       data-bs-toggle="list"
       role="tab"
@@ -83,7 +115,9 @@
     <a
       href="#search-friends"
       class="list-group-item list-group-item-action link text-decoration-none mt-2"
-      id="list-search-friends-list"
+      style="background-color: grey"
+
+      id="list-suggested-friends-list"
       data-bs-toggle="list"
       role="tab"
       aria-controls="list-search-friends"
@@ -91,7 +125,7 @@
     >
   </div>
 
-  <div class="container-fluid overflow-auto" style="padding: 60px">
+  <div class="container-fluid overflow-auto" style="padding: 15%">
     <div class="tab-content" id="nav-tabContent">
       <div
         class="tab-pane fade show active"
@@ -99,7 +133,7 @@
         role="tabpanel"
         aria-labelledby="list-friend-request-list"
       >
-        <h4 style="margin-bottom: 20px">Friend Requests</h4>
+        <h4 class="user_name" style="padding-right: 30%;">Friend Requests</h4>
         <div class="row">
           {% for profile in profiles %}
           <div class="col-sm-12 col-md-5 col-lg-2" style="margin-right: 1%">
@@ -157,13 +191,12 @@
                   rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
               "
             >
-              <img src= 
-              {% if user.profile == friend.user_profile %} 
-              "{{ friend.friend_profile.profile_picture.url }}" 
-              {% else %}
-               "{{ friend.user_profile.profile.url }}" 
-               {% endif %} style="height: 190px; width: 190px;"/>
-              <div class="card-body">
+            <img src="{% if user.profile == friend.user_profile %} 
+                {{ friend.friend_profile.profile_pic.url }} 
+            {% else %}
+                {{ friend.user_profile.profile_pic.url }} 
+            {% endif %}" style="height: 190px; width: 190px;"/>
+              <div class="card-body" style="background-color: grey;">
                 <h5 class="card-title d-flex">
                   {% if user.profile == friend.user_profile %} 
                   {{ friend.friend_profile.user.username }} 
