@@ -149,15 +149,11 @@
               <div class="card-body">
                 <div class="form-group mb-4">
                     <label class="form-label">Username</label>
-                    <input type="text" class="form-control mb-6" placeholder="Username...">
-                </div>
-                <div class="form-group mb-4">
-                    <label class="form-label">E-mail</label>
-                    <input type="text" class="form-control mb-6" placeholder="Email...">
+                    <input type="text" class="form-control mb-6" placeholder="{{request.user}}">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Company</label>
-                    <input type="text" class="form-control" placeholder="Company Ltd.">
+                    <label class="form-label">Role</label>
+                    <input type="text" class="form-control" placeholder="{{request.user.profile.role}}">
                 </div>
             </div>
             
@@ -412,6 +408,7 @@
               var username = document.querySelector('#account-general input[name="username"]').value;
               var email = document.querySelector('#account-general input[name="email"]').value;
               var company = document.querySelector('#account-general input[name="company"]').value;
+              var image = document.querySelector()
               // Other fields can be retrieved in a similar way
 
               // Create a data object to send to the server

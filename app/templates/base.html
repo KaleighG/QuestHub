@@ -408,10 +408,10 @@
         {% endif %} {% if user.is_authenticated %}
         <li class="profile">
           <div class="profile_details">
-            <img src="profile.jpeg" alt="profile image" />
+            <img src="{{request.user.profile.profile_pic.url}}" alt="profile pic" />
             <div class="profile_content">
-              <div class="name">{{ user_profile.user }}</div>
-              <div class="designation">{{ user_profile.role }}</div>
+              <div class="name">{{ request.user }}</div>
+              <div class="designation">{{ request.user.profile.role }}</div>
             </div>
           </div>
           <form action="{% url 'logout' %}" method="POST">
