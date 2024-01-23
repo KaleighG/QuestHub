@@ -10,6 +10,11 @@
     font-family: "Bubblegum Sans", cursive; /* Use a bubble letters font, or replace with your desired font */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for better visibility */
   }
+
+  .card h2:hover {
+    color: white;
+
+  }
   .card a {
     color: red;
   }
@@ -37,26 +42,6 @@
             <p class="card-text">{{ post.creator }}</p>
             <div class="post-caption" data-full-caption="{{ post.caption }}">
               {% if post.image %}
-<<<<<<< HEAD
-                <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
-              {% endif %}     
-              <div class="card-body">
-                <h2 class="card-text">{{ post.creator }}</h2>
-                <div class="post-caption" data-full-caption="{{ post.caption }}">
-                  {% if post.caption|length > 50 %}
-                    <div class="truncated-caption">
-                      {{ post.caption|truncatechars:50 }}
-                      <a href="#" class="continue-link">Continue</a>
-                    </div>
-                    <div class="full-caption" style="display: none;">
-                      {{ post.caption }}
-                      <a href="#" class="close-link">Close</a>
-                    </div>
-                  {% else %}
-                    {{ post.caption }}
-                  {% endif %}
-                </div>
-=======
               <img
                 src="{{ post.image.url }}"
                 class="card-img-top"
@@ -66,7 +51,6 @@
               <div class="truncated-caption">
                 {{ post.caption|truncatechars:50 }}
                 <a href="#" class="continue-link">Continue</a>
->>>>>>> f03ba6adbc64ffea07052eb47b4ea403191cc0a5
               </div>
               <div class="full-caption" style="display: none">
                 {{ post.caption }}
@@ -150,3 +134,9 @@
   }
 </style>
 {% endblock %}
+
+
+
+
+
+
