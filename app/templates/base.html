@@ -375,13 +375,15 @@
           </a>
           <span class="tooltip">Dashboard</span>
         </li>
-        <li>
-          <a href="{% url "userprofile" request.user.id %}">
-            <i class="bx bx-user"></i>
-            <span class="link_name">User</span>
-          </a>
-          <span class="tooltip">User</span>
-        </li>
+        {% if request.user.is_authenticaed %}
+          <li>
+            <a href="{% url "userprofile" request.user.id %}">
+              <i class="bx bx-user"></i>
+              <span class="link_name">User</span>
+            </a>
+            <span class="tooltip">User</span>
+          </li>
+        {% endif %}
         <li>
           <a href="/messages">
             <i class="bx bx-chat"></i>
