@@ -133,15 +133,15 @@
             <div class="tab-pane fade active show" id="account-general">
 
               <div class="card-body media align-items-center">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-80">
+                <img id="userImage" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-80">
                 <div class="media-body ml-4">
-                  <label class="btn btn-outline-primary">
+                  <label for="fileInput" class="btn btn-outline-primary">
                     Upload new photo
-                    <input type="file" class="account-settings-fileinput">
+                    <input id="fileInput" type="file" class="account-settings-fileinput" onchange="updateImage(this)">
                   </label> &nbsp;
-                  <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-
-                  <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                  <button type="button" class="btn btn-default md-btn-flat" onclick="resetImage()">Reset</button>
+              
+                  <div class="text-light small mt-1">Allowed JPG, GIF, or PNG. Max size of 800K</div>
                 </div>
               </div>
               <hr class="border-light m-0">
@@ -163,7 +163,6 @@
             
 
             </div>
-S
             <div class="tab-pane fade" id="account-change-password">
               <div class="card-body pb-2">
                 <div class="form" action="{% url 'changepassword' %}" method="POST">
@@ -359,6 +358,30 @@ S
 
   </div>
   <script>
+  var selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
+
+  function updateImage(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      document.getElementById("userImage").src = e.target.result;
+
+      // Update the global variable with the selected image URL
+      selectedImageUrl = e.target.result;
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  function resetImage() {
+    // Reset the image to the default one
+    document.getElementById("userImage").src = "https://bootdey.com/img/Content/avatar/avatar1.png";
+    // Reset the file input (optional)
+    document.getElementById("fileInput").value = "";
+
+    // Reset the global variable to the default image URL
+    selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
+  }
     document.addEventListener('DOMContentLoaded', function () {
       // Function to show/hide tabs
       function showTab(tabId) {
