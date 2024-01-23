@@ -1,0 +1,180 @@
+{% extends "base.html" %} {% block content %}
+<div class="d-flex">
+  <div
+    class="list-group list-group-flush friends-links"
+    id="list-tab"
+    role="tablist"
+    style="border-right: 1px solid black"
+  >
+    <a
+      href="#friend-request"
+      class="list-group-item list-group-item-action active link text-decoration-none mt-2"
+      id="list-friend-request-list"
+      data-bs-toggle="list"
+      role="tab"
+      aria-controls="list-friend-request"
+      >Friend Requests</a
+    >
+    <a
+      href="#all-friends"
+      class="list-group-item list-group-item-action link text-decoration-none mt-2"
+      id="list-all-friends-list"
+      data-bs-toggle="list"
+      role="tab"
+      aria-controls="list-all-friends"
+      >All Friends</a
+    >
+    <a
+      href="#suggested-friends"
+      class="list-group-item list-group-item-action link text-decoration-none mt-2"
+      id="list-suggested-friends-list"
+      data-bs-toggle="list"
+      role="tab"
+      aria-controls="list-suggested-friends"
+      >Suggested Friends</a
+    >
+  </div>
+
+  <div class="container-fluid overflow-auto" style="padding: 60px">
+    <div class="tab-content" id="nav-tabContent">
+      <div
+        class="tab-pane fade show active"
+        id="friend-request"
+        role="tabpanel"
+        aria-labelledby="list-friend-request-list"
+      >
+        <h4 style="margin-bottom: 20px">Friend Requests</h4>
+        <div class="row">
+          {% for profile in profiles %}
+          <div class="col-sm-12 col-md-5 col-lg-2" style="margin-right: 1%">
+            <div
+              class="card"
+              style="
+                width: 12rem;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+                  rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+                  rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+              "
+            >
+              <img
+                src="{{ profile.profile_picture.url }}"
+                alt=""
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ profile.user.username }}</h5>
+                <p class="card-text"></p>
+                <div class="row">
+                  <a
+                    href="{% url 'accept_friend_request' profile.user.id %}"
+                    class="btn btn-primary mb-2"
+                    >Accept</a
+                  >
+                  <a
+                    href="{% url 'decline_friend_request' profile.user.id %}"
+                    class="btn btn-secondary"
+                    >Reject</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="all-friends"
+        role="tabpanel"
+        aria-labelledby="list-all-friends-list"
+      >
+        <h4 style="margin-bottom: 20px">All Friends</h4>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-2 g-lg-3">
+          {% for friend in friends %}
+          <div class="col" style="margin-right: 1%;">
+            <div
+              class="card h-100"
+              style="
+                width: 12rem;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+                  rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+                  rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+              "
+            >
+              <img src= 
+              {% if user.profile == friend.user_profile %} 
+              "{{ friend.friend_profile.profile_picture.url }}" 
+              {% else %}
+               "{{ friend.user_profile.profile.url }}" 
+               {% endif %} style="height: 190px; width: 190px;"/>
+              <div class="card-body">
+                <h5 class="card-title d-flex">
+                  {% if user.profile == friend.user_profile %} 
+                  {{ friend.friend_profile.user.username }} 
+                  {% else %} 
+                  {{ friend.user_profile.user.username }} 
+                  {% endif %}
+                  <div class="dropdown" style="margin-left: auto">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      style="all: unset"
+                    >
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                      style="background-color: transparent; border: none"
+                    >
+                      <li>
+                        <a
+                          href="{% url "send_message" friend.friend_profile.id %}"
+                          class="btn btn-secondary mb-2"
+                          style="width: 154px"
+                        >
+                          <i class="bi bi-chat-text"></i> Message</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href=""
+                          class="btn btn-secondary mb-2"
+                          style="width: 154px"
+                        >
+                          <i class="bi bi-person-slash"></i> Block</a
+                        >
+                      </li>
+                      <li>
+                        <a href="{% url "remove_friend" friend.id %}" class="btn btn-danger">
+                          <i class="bi bi-person-dash"></i> Remove Friend</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </h5>
+                <p class="card-text"></p>
+                <div class="row"></div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="suggested-friends"
+        role="tabpanel"
+        aria-labelledby="list-suggested-friends-list"
+      >
+        <h4 style="margin-bottom: 20px">Suggested Friends</h4>
+        <div class="row">{% for random in random %} {% endfor %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

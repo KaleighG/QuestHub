@@ -59,7 +59,6 @@ def usersettings(request):
 
 
 def changepassword(request):
-    form = PasswordChangeForm()
     if request.method == "POST":
         form = PasswordChangeForm(request.POST)
         if form.is_valid():
@@ -131,6 +130,14 @@ def decline_friend_request(request, user_id):
     return redirect("friends")
 
 def remove_friend(request, friend_id):
-    friend = Friend.objects.get(id=friend_id)
-    friend.delete()
+    friendObj = Friend.objects.get(id=friend_id)
+    friendObj.delete()
     return redirect("friends")
+
+def friends(request):
+    friends = Friend.objects.filter(Q(user_profile=request.user.profile)|Q(friend_profile=request.user.profile))
+    requests = Friend_Request.objects.filter(recipient=request.user, status='pending')
+    requests_ids = [request.sender for request in requests]
+    profiles = UserProfile.objects.filter(user__in=requests_ids)
+    search_people = UserProfile.objects.all()
+    return render(request, "friends.html", {"friends":friends, "profiles": profiles, "search_people":search_people})
