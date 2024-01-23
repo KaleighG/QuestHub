@@ -9,7 +9,31 @@ class UserProfile(models.Model):
     profile_pic = models.ImageField(upload_to="media", blank=True, null=True)
     bio = models.CharField(max_length=250, null=True, blank=True)
     color_blind_mode = models.CharField(max_length=20, default="default")
+    friends = models.ManyToManyField("self", symmetrical=True)
 
+    def send_friend_request(self, to_user):
+        Friend_Request.objects.create(
+            sender=self.user, recipient=to_user, status="pending"
+        )
+
+    def accept_friend_request(self, friend_request):
+        friend_request.status = "accepted"
+        friend_request.save()
+        self.friends.add(friend_request.sender.profile)
+        Friend.objects.create(
+            user_profile=self, friend_profile=friend_request.sender.profile
+        )
+
+    def decline_friend_request(self, friend_request):
+        friend_request.status = "declined"
+        friend_request.save()
+
+    def remove_friend(self, other_user):
+        self.friends.remove(other_user)
+
+    def are_friends(self, user_profile):
+        return self.friends.filter(id=user_profile.id).exists()
+    
 
 class Post(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)

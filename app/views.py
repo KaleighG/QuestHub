@@ -38,8 +38,13 @@ def messages(request):
 
 
 def profile(request, user_id):
+    friends = Friend.objects.filter(Q(user_profile=request.user.profile)|Q(friend_profile=request.user.profile))
+    requests = Friend_Request.objects.filter(recipient=request.user, status='pending')
+    requests_ids = [request.sender for request in requests]
+    profiles = UserProfile.objects.filter(user__in=requests_ids)
+    search_people = UserProfile.objects.all()
     user_profile = UserProfile.objects.get(user__id=user_id)
-    return render(request, "profile.html", {"user_profile": user_profile})
+    return render(request, "profile.html", {"user_profile": user_profile, "friends":friends, "profiles": profiles, "search_people":search_people})
 
 
 def register(request):
@@ -61,7 +66,6 @@ def usersettings(request):
 
 
 def changepassword(request):
-    form = PasswordChangeForm()
     if request.method == "POST":
         form = PasswordChangeForm(request.POST)
         if form.is_valid():
@@ -134,10 +138,11 @@ def decline_friend_request(request, user_id):
     return redirect("friends")
 
 def remove_friend(request, friend_id):
-    friend = Friend.objects.get(id=friend_id)
-    friend.delete()
+    friendObj = Friend.objects.get(id=friend_id)
+    friendObj.delete()
     return redirect("friends")
 
+<<<<<<< HEAD
 
 @login_required
 def update_profile(request):
@@ -157,3 +162,5 @@ def update_profile(request):
     else:
         # Handle GET requests or other methods
         return JsonResponse({'message': 'Invalid request method'}, status=400)
+=======
+>>>>>>> f45fc5155e7090fef6a5e6294977be59c3a7aa15

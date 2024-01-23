@@ -19,3 +19,12 @@ class MessageAdmin(admin.ModelAdmin):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ("creator", "image", "caption", "date")
+
+@admin.register(Friend)
+class FriendAdmin(admin.ModelAdmin):
+    list_display = ("user_profile","friend_profile","date_added")
+
+@admin.register(Friend_Request)
+class Friend_RequestAdmin(admin.ModelAdmin):
+    list_display = ("sender","recipient","status", "timestamp")
+

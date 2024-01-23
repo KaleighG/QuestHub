@@ -1,74 +1,5 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Profile{% endblock %} {% block content %}
-<style>
-<<<<<<< HEAD
-  .container .mt-5 {
-    position: absolute;
-  }
-</style>
-<div class="container mt-5">
-  <img src="{{request.user.profile.profile_pic.url}}" alt="profile pic" />
-</div>
-<div class="container mt-5">{{ request.user }}</div>
-<div class="container mt-5">{{ request.user.profile.role }}</div>
-<div class="container mt-5">{{ request.user.profile.bio }}</div>
-
-=======
-  .friends-container {
-    text-align: center;
-    margin: 5%;
-    width: 45%;
-    padding-top: 2%;
-    border-radius: 2%;
-    background-image: url('{% static "images/parch.jpg" %}');
-  }
-  .p-container {
-    text-align: center;
-    margin: 5%;
-    width: 60%;
-    padding-top: 2%;
-    border-radius: 2%;
-    background-image: url('{% static "images/parch.jpg" %}');
-  }
-  .container .mt-5 {
-    position: absolute;
-  }
-
-  .profile-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .user_name {
-    color: black;
-    font-family: "Bubblegum Sans", cursive;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-</style>
-{% if user_profile.profile_pic %}
-<div class="profile-container">
-  <div class="p-container">
-    <div class="container-mt-5">
-      <h2 class="user_name">{{ user_profile.user.username }}'s Profile</h2>
-    </div>
-    {% endif %}
-
-    <div class="container mt-5">
-        {% if user_profile.profile_pic %}
-        <img
-        src="{{ user_profile.profile_pic.url }}"
-        alt="profile pic"
-        style="height: 350px; width: 350px; border-radius: 50%"
-      />
-        {% endif %}
-      
-    </div>
-    <div class="container mt-5">{{ user_profile.role }}</div>
-    <div class="container mt-5">{{ user_profile.bio }}</div>
-  </div>
-  {% if user.is_authenticated and user == user_profile.user%}
-  <div class="friends-container">
-    <h2 class="user_name">{{ user_profile.user.username }}'s Friends</h2>
-    <div class="d-flex">
+{% extends "base.html" %} {% block content %}
+<div class="d-flex">
   <div
     class="list-group list-group-flush friends-links"
     id="list-tab"
@@ -246,9 +177,4 @@
   </div>
 </div>
 
-  </div>
-  {% endif %}
-</div>
-
->>>>>>> f45fc5155e7090fef6a5e6294977be59c3a7aa15
-{% endblock %}
+{% endblock content %}

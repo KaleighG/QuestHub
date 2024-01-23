@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style type="text/css">
@@ -63,6 +68,9 @@
         transition: all 0.5s ease;
       }
 
+      .bi-dice-5::before {
+        margin-right: -10px;
+      }
       .sidebar .logo_details .icons,
       .sidebar .logo_details .bi.bi-dice-5 {
         margin-left: 55%;
@@ -276,11 +284,14 @@
 
       .sidebar.open li.profile {
         width: 250px;
+        background-color: red;
+
       }
 
-      .sidebar .profile .profile_details {
+      .sidebar.open .profile .profile_details {
         display: flex;
         flex-wrap: nowrap;
+        algin-items: center
       }
 
       .sidebar li img {
@@ -288,7 +299,7 @@
         width: 45px;
         object-fit: cover;
         border-radius: 50%;
-        margin-right: 25px;
+        margin-right: 15px;
       }
 
       .sidebar li.profile .name,
@@ -296,6 +307,7 @@
         font-size: 15px;
         font-weight: 400;
         color: white;
+        margin-top: -15px;
         white-space: nowrap;
       }
 
@@ -392,6 +404,13 @@
           <span class="tooltip">Message</span>
         </li>
         <li>
+          <a href="/friends">
+            <i class="bi bi-plus-circle-dotted"></i>
+            <span class="link_name">Friends</span>
+          </a>
+          <span class="tooltip">Friends</span>
+        </li>
+        <li>
           <a href="/create_post">
             <i class="bi bi-plus-circle-dotted"></i>
             <span class="link_name">Create Post</span>
@@ -425,7 +444,9 @@
         {% endif %} {% if user.is_authenticated %}
         <li class="profile">
           <div class="profile_details">
+            {% if request.user.profile.profile_pic %}
             <img src="{{request.user.profile.profile_pic.url}}" alt="profile pic" />
+            {% endif %}
             <div class="profile_content">
               <div class="name">{{ request.user }}</div>
               <div class="designation">{{ request.user.profile.role }}</div>
@@ -486,4 +507,9 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"
   ></script>
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
 </html>
