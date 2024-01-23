@@ -63,6 +63,9 @@
         transition: all 0.5s ease;
       }
 
+      .bi-dice-5::before {
+        margin-right: -10px;
+      }
       .sidebar .logo_details .icons,
       .sidebar .logo_details .bi.bi-dice-5 {
         margin-left: 55%;
@@ -276,11 +279,14 @@
 
       .sidebar.open li.profile {
         width: 250px;
+        background-color: red;
+
       }
 
-      .sidebar .profile .profile_details {
+      .sidebar.open .profile .profile_details {
         display: flex;
         flex-wrap: nowrap;
+        algin-items: center
       }
 
       .sidebar li img {
@@ -288,7 +294,7 @@
         width: 45px;
         object-fit: cover;
         border-radius: 50%;
-        margin-right: 25px;
+        margin-right: 15px;
       }
 
       .sidebar li.profile .name,
@@ -296,6 +302,7 @@
         font-size: 15px;
         font-weight: 400;
         color: white;
+        margin-top: -15px;
         white-space: nowrap;
       }
 
