@@ -1,4 +1,21 @@
-{% extends 'base.html' %} {% block title %}Messages{% endblock %} 
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div>messages</div>
+<div class="container-fluid">
+  <div class="row">
+    {% for other_user, message in messages.items %}
+    <a
+      href="{% url 'send_message' other_user.id %}"
+      class="link text-decoration-none"
+    >
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title" style="color: black;"><b>{{ other_user }}</b></div>
+          <div class="card-text" style="color: black;">{{ message }}</div>
+          <a href="{% url "delete_message" other_user.id %}" class="btn btn-danger">Delete Message</a>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
