@@ -1,40 +1,43 @@
-{% extends 'base.html' %} {% block content%}
-<div class="container mt-5">
-  <div class="col-lg-6 offset-lg-3">
-    <h2 class="mb-4 text-center">Login</h2>
-    <form method="post" class="form">
-      {% csrf_token %} {% if form.non_field_errors %}
-      <div class="alert alert-danger" role="alert">
-        {% for error in form.non_field_errors %} {{ error }} {% endfor %}
-      </div>
-      {% endif %}
+{% extends 'base.html' %} {% load static %} {% block content%}
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
 
-      <div class="mb-3">
-        <label for="id_username" class="form-label">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="id_username"
-          name="username"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="id_password" class="form-label">Password</label>
-        <input
-          type="text"
-          class="form-control"
-          id="id_password"
-          name="password"
-          required
-        />
-        <p>
-          Haven't created an account? Register
-          <a class="link" href="{% url 'register' %}">here</a>
-        </p>
-        <button class="btn btn-primary" type="submit">Login</button>
-      </div>
-    </form>
+  <div class="container mt-5">
+    <div class="col-lg-6 offset-lg-3" style="background-image: url('{% static "images/parch.jpg" %}'); background-size: cover; background-position: center;">
+      <h2 class="mb-4 text-center">Login</h2>
+      <form method="post" class="form">
+        {% csrf_token %} {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">
+          {% for error in form.non_field_errors %} {{ error }} {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label for="id_username" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id_username"
+            name="username"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="id_password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="id_password"
+            name="password"
+            required
+          />
+          <p>
+            Haven't created an account? Register
+            <a class="link" href="{% url 'register' %}">here</a>
+          </p>
+          <button class="btn btn-primary" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
