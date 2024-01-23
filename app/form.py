@@ -28,5 +28,3 @@ class CreatePostForm(ModelForm):
 class PostSearchForm(forms.Form):
     query = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Search posts...'}))
 
-class ChatGPTForm(forms.Form):
-    input_text = forms.CharField(label='Input Text', widget=forms.Textarea)

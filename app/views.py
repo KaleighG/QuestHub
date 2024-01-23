@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from app.models import *
 from django.db.models import Q
-import openai
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -114,31 +115,7 @@ def delete_message(request, recipient_id):
         message.delete()
     return redirect('message')
 
-<<<<<<< HEAD
 
-def chatgpt_image_creator(request):
-    if request.method == 'POST':
-        form = ChatGPTForm(request.POST)
-        if form.is_valid():
-            input_text = form.cleaned_data['input_text']
-
-            # Call OpenAI API to generate image using input_text
-            # Remember to replace 'your-api-key' with your actual OpenAI API key
-            openai.api_key = 'your-api-key'
-            response = openai.Completion.create(
-                engine="text-davinci-003",
-                prompt=input_text,
-                max_tokens=150
-            )
-
-            generated_image = response['choices'][0]['text']
-            return render(request, 'yourapp/result.html', {'generated_image': generated_image})
-
-    else:
-        form = ChatGPTForm()
-
-    return render(request, 'yourapp/chatgpt_form.html', {'form': form})
-=======
 def send_friend_request(request, user_id):
     recipient = UserProfile.objects.get(user__id=user_id)
     request.user.profile.send_friend_request(recipient.user)
@@ -160,4 +137,23 @@ def remove_friend(request, friend_id):
     friend = Friend.objects.get(id=friend_id)
     friend.delete()
     return redirect("friends")
->>>>>>> 650702fca058b53ea1dda4291e66f4c15da4aebd
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        # Get data from the POST request
+        user_data = json.loads(request.body)
+        user_id = user_data.get('user')
+        role = user_data.get('role')
+        profile_pic = user_data.get('profile_pic')
+        
+        request.user.profile.role = user_id
+        request.user.profile.role = role
+        request.user.profile.profile_pic = profile_pic
+        request.user.profile.save()
+
+        return JsonResponse({'message': 'Profile updated successfully'})
+    else:
+        # Handle GET requests or other methods
+        return JsonResponse({'message': 'Invalid request method'}, status=400)

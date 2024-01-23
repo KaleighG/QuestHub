@@ -127,11 +127,7 @@
         <div class="col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links">
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-general">General</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">Social links</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Connections</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a>
           </div>
         </div>
         <div class="col-md-9">
@@ -139,11 +135,11 @@
             <div class="tab-pane fade active show" id="account-general">
 
               <div class="card-body media align-items-center">
-                <img id="userImage" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-80">
+                <img id="userImage" src="{{request.user.profile.profile_pic.url}}" alt="" class="d-block ui-w-80">
                 <div class="media-body ml-4">
                   <label for="fileInput" class="btn btn-outline-primary">
                     Upload new photo
-                    <input id="fileInput" type="file" class="account-settings-fileinput" onchange="updateImage(this)">
+                    <input id="fileInput" type="file" name= "profile_pic" class="account-settings-fileinput" onchange="updateImage(this)">
                   </label> &nbsp;
                   <button type="button" class="btn btn-default md-btn-flat" onclick="resetImage()">Reset</button>
               
@@ -155,17 +151,18 @@
               <div class="card-body">
                 <div class="form-group mb-4">
                     <label class="form-label">Username</label>
-                    <input type="text" class="form-control mb-6" placeholder="{{request.user}}">
+                    <input type="text" class="form-control mb-6" name="user" placeholder="{{request.user}}">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Role</label>
-                    <input type="text" class="form-control" placeholder="{{request.user.profile.role}}">
+                    <input type="text" class="form-control" name= "role" placeholder="{{request.user.profile.role}}">
                 </div>
+            
             </div>
             
 
             </div>
-            <div class="tab-pane fade" id="account-change-password">
+            <div class="tab-pane fade" id="account-info">
               <div class="card-body pb-2">
                 <div class="form" action="{% url 'changepassword' %}" method="POST">
                   <div class="form-group">
@@ -185,8 +182,6 @@
                   <button class="btn btn-primary" type="submit">Reset Password</button>
                 </div> 
               </div>
-            </div>
-            <div class="tab-pane fade" id="account-info">
               <div class="card-body pb-2">
 
                 <div class="form-group">
@@ -207,10 +202,7 @@
                     <option>France</option>
                   </select>
                 </div>
-
-
-              </div>
-              <hr class="border-light m-0">
+                <hr class="border-light m-0">
               <div class="card-body pb-2">
 
                 <h6 class="mb-4">Contacts</h6>
@@ -222,130 +214,6 @@
                   <label class="form-label">Website</label>
                   <input type="text" class="form-control" value="">
                 </div>
-
-              </div>
-      
-            </div>
-            <div class="tab-pane fade" id="account-social-links">
-              <div class="card-body pb-2">
-
-                <div class="form-group">
-                  <label class="form-label">Twitter</label>
-                  <input type="text" class="form-control" value="https://twitter.com/user">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Facebook</label>
-                  <input type="text" class="form-control" value="https://www.facebook.com/user">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Google+</label>
-                  <input type="text" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">LinkedIn</label>
-                  <input type="text" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Instagram</label>
-                  <input type="text" class="form-control" value="https://www.instagram.com/user">
-                </div>
-
-              </div>
-            </div>
-            <div class="tab-pane fade" id="account-connections">
-              <div class="card-body">
-                <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
-              </div>
-              <hr class="border-light m-0">
-              <div class="card-body">
-                <h5 class="mb-2">
-                  <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Remove</a>
-                  <i class="ion ion-logo-google text-google"></i>
-                  You are connected to Google:
-                </h5>
-                nmaxwell@mail.com
-              </div>
-              <hr class="border-light m-0">
-              <div class="card-body">
-                <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
-              </div>
-              <hr class="border-light m-0">
-              <div class="card-body">
-                <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong></button>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="account-notifications">
-              <div class="card-body pb-2">
-
-                <h6 class="mb-4">Activity</h6>
-
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input" checked="">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Email me when someone comments on my article</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input" checked="">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Email me when someone answers on my forum thread</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Email me when someone follows me</span>
-                  </label>
-                </div>
-              </div>
-              <hr class="border-light m-0">
-              <div class="card-body pb-2">
-
-                <h6 class="mb-4">Application</h6>
-
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input" checked="">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">News and announcements</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Weekly product updates</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="switcher">
-                    <input type="checkbox" class="switcher-input" checked="">
-                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                    <span class="switcher-label">Weekly blog digest</span>
-                  </label>
-                </div>
-
               </div>
             </div>
           </div>
@@ -360,30 +228,46 @@
 
   </div>
   <script>
-  var selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
-
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === name + '=') {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
+  
     function updateImage(input) {
       var reader = new FileReader();
-
+  
       reader.onload = function (e) {
         document.getElementById("userImage").src = e.target.result;
-
+  
         // Update the global variable with the selected image URL
         selectedImageUrl = e.target.result;
       };
-
+  
       reader.readAsDataURL(input.files[0]);
     }
-
+  
     function resetImage() {
       // Reset the image to the default one
       document.getElementById("userImage").src = "https://bootdey.com/img/Content/avatar/avatar1.png";
       // Reset the file input (optional)
       document.getElementById("fileInput").value = "";
-
+  
       // Reset the global variable to the default image URL
       selectedImageUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
     }
+  
     document.addEventListener('DOMContentLoaded', function () {
       // Function to show/hide tabs
       function showTab(tabId) {
@@ -396,6 +280,7 @@
           activeTab.classList.add('show', 'active');
         }
       }
+    })
   
       // Event listener for clicking on tab links
       document.querySelectorAll('.account-settings-links .list-group-item').forEach(function (button) {
@@ -409,51 +294,40 @@
       // Save changes and cancel buttons
       var saveChangesBtn = document.getElementById('saveChangesBtn');
       if (saveChangesBtn) {
-          saveChangesBtn.addEventListener('click', function () {
-              // Get the updated data from the form
-              var username = document.querySelector('#account-general input[name="username"]').value;
-              var email = document.querySelector('#account-general input[name="email"]').value;
-              var company = document.querySelector('#account-general input[name="company"]').value;
-              var image = document.querySelector()
-              // Other fields can be retrieved in a similar way
+        saveChangesBtn.addEventListener('click', function () {
+          // Get the updated data from the form
+          var username = document.querySelector('#account-general input[name="user"]').value;
+          var role = document.querySelector('#account-general input[name="role"]').value;
+          var profile_pic = document.querySelector('#account-general input[name="profile_pic"]').value;
 
-              // Create a data object to send to the server
-              var data = {
-                  username: username,
-                  email: email,
-                  company: company,
-                  // Add other fields as needed
-              };
+          // Create a data object to send to the server
+          var data = {
+            user: username,
+            role: role,
+            profile_pic: profile_pic,
+            // Add other fields as needed
+          };
 
-              // Send the updated data to the server using AJAX
-              // Adjust the URL to match your Django view for profile update
-              fetch('/update_profile/', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      // Include any additional headers if required
-                  },
-                  body: JSON.stringify(data),
-              })
-                  .then(response => response.json())
-                  .then(result => {
-                      console.log('Profile updated successfully:', result);
-                      // You can handle the success response as needed
-                  })
-                  .catch(error => {
-                      console.error('Error updating profile:', error);
-                      // Handle the error as needed
-                  });
-          });
-      }
-    
-      var cancelBtn = document.getElementById('cancelBtn');
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', function () {
-          // Add your cancel logic here
-          console.log('Cancel');
+          // Send the updated data to the server using AJAX
+          // Include the CSRF token in the headers
+          fetch('/update_profile/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token here
+            },
+            body: JSON.stringify(data),
+          })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Profile updated successfully:', result);
+              // You can handle the success response as needed
+            })
+            .catch(error => {
+              console.error('Error updating profile:', error);
+              // Handle the error as needed
+            });
         });
-      }
-    });
+      };
   </script>
 {% endblock %}
