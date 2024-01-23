@@ -400,6 +400,15 @@
           <span class="tooltip">Message</span>
         </li>
         <li>
+          <a href="/create_post">
+            <i class="bi bi-plus-circle-dotted"></i>
+            <span class="link_name">Create Post</span>
+          </a>
+          <span class="tooltip">Create Post</span>
+        </li>
+        
+
+        <li>
           <a href="/usersettings">
             <i class="bx bx-cog"></i>
             <span class="link_name">Settings</span>
@@ -424,10 +433,21 @@
         {% endif %} {% if user.is_authenticated %}
         <li class="profile">
           <div class="profile_details">
+<<<<<<< HEAD
             <img src="{{request.user.profile.profile_pic.url}}" alt="profile pic" />
             <div class="profile_content">
               <div class="name">{{ request.user }}</div>
               <div class="designation">{{ request.user.profile.role }}</div>
+=======
+            {% if request.user.profile.profile_pic %}
+             <img src="{{ request.user_profile.profile_pic.url }}" alt="profile image" />
+            {% endif %}
+            <div class="profile_content">
+              <div class="name">{{ user_profile.user }}</div>
+              {% if request.user.profile.role %}
+              <div class="designation">{{ user_profile.role }}</div>
+              {% endif %}
+>>>>>>> e7bcbb0bec0b6fbd6a194ed1e1e9e5ac3f82f22b
             </div>
           </div>
           <form action="{% url 'logout' %}" method="POST">
