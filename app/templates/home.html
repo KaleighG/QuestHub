@@ -1,100 +1,131 @@
-{% extends 'base.html' %}
-{% block title %}Welcome{% endblock %}
-{% block content %}
-  <div class="container mt-5">
-    <h1 class="mb-4 text-center">All Posts</h1>
-    <div class="d-flex justify-content-center align-items-center">
-      {% if searched %}
-        <div class="row">
-          {% for post in posts %}
-            <div class="col-lg-4 mb-4">
-              <div class="card bg-dark text-white">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
-                {% endif %}     
-                <div class="card-body">
-                  <p class="card-text">{{ post.creator }}</p>
-                  <div class="post-caption" data-full-caption="{{ post.caption }}">
-                    {% if post.caption|length > 50 %}
-                      <div class="truncated-caption">
-                        {{ post.caption|truncatechars:50 }}
-                        <a href="#" class="continue-link">Continue</a>
-                      </div>
-                      <div class="full-caption" style="display: none;">
-                        {{ post.caption }}
-                        <a href="#" class="close-link">Close</a>
-                      </div>
-                    {% else %}
-                      {{ post.caption }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      {% else %}
-      <div class="row">
-        {% for post in posts %}
-          <div class="col-lg-4 mb-4 d-flex align-items-stretch">
-            <div class="card bg-dark text-white">
+{% extends 'base.html' %} {% load static %} {% block title %}Welcome{% endblock %} {% block content %}
+<style>
+  h1.mb-4.text-center {
+    font-family: "Bubblegum Sans", cursive; /* Use a bubble letters font, or replace with your desired font */
+    color: white; /* Set the text color to white */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for better visibility */
+  }
+  .card h2 {
+    color: black;
+    font-family: "Bubblegum Sans", cursive; /* Use a bubble letters font, or replace with your desired font */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for better visibility */
+  }
+  .card a {
+    color: red;
+  }
+  .card {
+    background-image: url('{% static "images/parch.jpg" %}');
+    padding: 10%;
+    height: 450px; /* Adjust the height value as needed */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    width: 400px; /* Ensure the image takes the full width of the container */
+  }
+  .card-img-top {
+    height: 300px;
+    width: 300px;
+  }
+</style>
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">All Posts</h1>
+  <div class="d-flex justify-content-center align-items-center">
+    {% if searched %}
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-lg-4 mb-4">
+        <div class="card bg-dark text-white">
+          <div class="card-body">
+            <p class="card-text">{{ post.creator }}</p>
+            <div class="post-caption" data-full-caption="{{ post.caption }}">
               {% if post.image %}
-              <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
-              {% endif %}     
-              <div class="card-body">
-                <p class="card-text">{{ post.creator }}</p>
-                <div class="post-caption" data-full-caption="{{ post.caption }}">
-                  {% if post.caption|length > 50 %}
-                    <div class="truncated-caption">
-                      {{ post.caption|truncatechars:50 }}
-                      <a href="#" class="continue-link">Continue</a>
-                    </div>
-                    <div class="full-caption" style="display: none;">
-                      {{ post.caption }}
-                      <a href="#" class="close-link">Close</a>
-                    </div>
-                  {% else %}
-                    {{ post.caption }}
-                  {% endif %}
-                </div>
+              <img
+                src="{{ post.image.url }}"
+                class="card-img-top"
+                alt="Post Image"
+              />
+              {% endif %} {% if post.caption|length > 50 %}
+              <div class="truncated-caption">
+                {{ post.caption|truncatechars:50 }}
+                <a href="#" class="continue-link">Continue</a>
               </div>
+              <div class="full-caption" style="display: none">
+                {{ post.caption }}
+                <a href="#" class="close-link">Close</a>
+              </div>
+              {% else %} {{ post.caption }} {% endif %}
             </div>
           </div>
-        {% endfor %}
+        </div>
       </div>
-      {% endif %}
+      {% endfor %}
     </div>
+    {% else %}
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-lg-4 mb-4 d-flex align-items-stretch">
+        <div class="card">
+          {% if post.image %}
+          <img
+            src="{{ post.image.url }}"
+            class="card-img-top"
+            alt="Post Image"
+          />
+          {% endif %}
+          <div class="card-body">
+            <h2 class="card-text"> <a href="{% url "userprofile" post.creator.id %}" class="link text-decoration-none">{{ post.creator }}</a></h2>
+            <div class="post-caption" data-full-caption="{{ post.caption }}">
+              {% if post.caption|length > 50 %}
+              <div class="truncated-caption">
+                {{ post.caption|truncatechars:50 }}
+                <a href="#" class="continue-link">Continue</a>
+              </div>
+              <div class="full-caption" style="display: none">
+                {{ post.caption }}
+                <a href="#" class="close-link">Close</a>
+              </div>
+              {% else %} {{ post.caption }} {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
-
-  <!-- JavaScript to handle toggle for full caption -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-  <script>
-    $(document).ready(function() {
-      // Function to handle 'continue' button click
-      $('.post-caption .continue-link').click(function(e) {
-        e.preventDefault();
-        // Toggle between truncated and full captions
-        $(this).closest('.post-caption').find('.truncated-caption').toggle();
-        $(this).closest('.post-caption').find('.full-caption').toggle();
-      });
-
-      // Function to handle 'close' button click
-      $('.post-caption .close-link').click(function(e) {
-        e.preventDefault();
-        // Toggle between truncated and full captions
-        $(this).closest('.post-caption').find('.truncated-caption').toggle();
-        $(this).closest('.post-caption').find('.full-caption').toggle();
-      });
+</div>
+<!-- JavaScript to handle toggle for full caption -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
+<script>
+  $(document).ready(function () {
+    // Function to handle 'continue' button click
+    $(".post-caption .continue-link").click(function (e) {
+      e.preventDefault();
+      // Toggle between truncated and full captions
+      $(this).closest(".post-caption").find(".truncated-caption").toggle();
+      $(this).closest(".post-caption").find(".full-caption").toggle();
     });
-  </script>
-
-  <!-- Custom CSS for increased height -->
-  <style>
-    .card.expanded {
-      height: auto; /* Set height to auto for variable content */
-    }
-  </style>
+    // Function to handle 'close' button click
+    $(".post-caption .close-link").click(function (e) {
+      e.preventDefault();
+      // Toggle between truncated and full captions
+      $(this).closest(".post-caption").find(".truncated-caption").toggle();
+      $(this).closest(".post-caption").find(".full-caption").toggle();
+    });
+  });
+</script>
+<!-- Custom CSS for increased height -->
+<style>
+  .card.expanded {
+    height: auto; /* Set height to auto for variable content */
+  }
+</style>
 {% endblock %}
