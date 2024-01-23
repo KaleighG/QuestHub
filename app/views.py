@@ -9,7 +9,8 @@ from django.db.models import Q
 
 
 def home(request):
-    return render(request, "home.html")
+    posts = Post.objects.all()
+    return render(request, 'home.html', {'posts': posts})
 
 
 @login_required
@@ -17,10 +18,10 @@ def messages(request):
     return render(request, "message.html")
 
 
-@login_required
 def profile(request):
-    return render(request, "profile.html")
-
+    # Get the profile of the currently logged-in user
+    user_profile = UserProfile.objects.get(user=request.user)
+    return render(request, 'profile.html', {'user_profile': user_profile})
 
 def register(request):
     if request.method == "POST":
