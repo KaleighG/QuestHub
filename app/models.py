@@ -31,3 +31,39 @@ class Message(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.message}"
+
+
+
+class Friend(models.Model):
+    user_profile = models.ForeignKey(
+        "UserProfile", on_delete=models.CASCADE, related_name="user_profile"
+    )
+    friend_profile = models.ForeignKey(
+        "UserProfile", on_delete=models.CASCADE, related_name="friend_profile"
+    )
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return (
+            f"{self.user_profile.user.username} - {self.friend_profile.user.username}"
+        )
+
+
+class Friend_Request(models.Model):
+    sender = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="sent_requests"
+    )
+    recipient = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="received_requests"
+    )
+    status = models.CharField(
+        max_length=10,
+        choices=[
+            ("pending", "Pending"),
+            ("accepted", "Accepted"),
+            ("declined", "Declined"),
+            ("cancelled", "Cancelled"),
+        ],
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
+

@@ -25,7 +25,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path("", home, name="home"),
-    path("profile/", profile, name="userprofile"),
+    path("profile/<int:user_id>/", profile, name="userprofile"),
     path("messages/", messages, name="message"),
     path("login/", LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
@@ -35,5 +35,21 @@ urlpatterns = [
     path("create_post", create_post, name="create_post"),
     path("send_message/<int:recipient_id>/", send_message, name="send_message"),
     path("delete_message/<int:recipient_id>/", delete_message, name="delete_message"),
+        path(
+        "send_friend_request/<int:user_id>/",
+        send_friend_request,
+        name="send_friend_request",
+    ),
+    path(
+        "accept_friend_request/<int:user_id>/",
+        accept_friend_request,
+        name="accept_friend_request",
+    ),
+    path(
+        "decline_friend_request/<int:user_id>/",
+        decline_friend_request,
+        name="decline_friend_request",
+    ),
+    path("remove_friend/<int:friend_id>/", remove_friend, name="remove_friend"),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

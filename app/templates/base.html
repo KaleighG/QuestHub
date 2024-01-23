@@ -376,7 +376,7 @@
           <span class="tooltip">Dashboard</span>
         </li>
         <li>
-          <a href="/profile">
+          <a href="{% url "userprofile" request.user.id %}">
             <i class="bx bx-user"></i>
             <span class="link_name">User</span>
           </a>

@@ -35,9 +35,8 @@ def messages(request):
     return render(request, "message.html", {"messages": latest_messages})
 
 
-def profile(request):
-    # Get the profile of the currently logged-in user
-    user_profile = UserProfile.objects.get(user=request.user)
+def profile(request, user_id):
+    user_profile = UserProfile.objects.get(user__id=user_id)
     return render(request, "profile.html", {"user_profile": user_profile})
 
 
@@ -113,3 +112,25 @@ def delete_message(request, recipient_id):
     for message in messages:
         message.delete()
     return redirect('message')
+
+def send_friend_request(request, user_id):
+    recipient = UserProfile.objects.get(user__id=user_id)
+    request.user.profile.send_friend_request(recipient.user)
+    return redirect("home")
+
+
+def accept_friend_request(request, user_id):
+    friend_request = Friend_Request.objects.get(sender=user_id, recipient=request.user)
+    friend_request.recipient.profile.accept_friend_request(friend_request)
+    return redirect("friends")
+
+
+def decline_friend_request(request, user_id):
+    friend_request = Friend_Request.objects.get(sender=user_id, recipient=request.user)
+    request.user.profile.decline_friend_request(friend_request)
+    return redirect("friends")
+
+def remove_friend(request, friend_id):
+    friend = Friend.objects.get(id=friend_id)
+    friend.delete()
+    return redirect("friends")
