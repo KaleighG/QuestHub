@@ -3,7 +3,6 @@
 {% block content %}
   <div class="container mt-5">
     <h1 class="mb-4 text-center">All Posts</h1>
-
     <div class="d-flex justify-content-center align-items-center">
       {% if searched %}
         <div class="row">
@@ -37,7 +36,7 @@
       {% else %}
       <div class="row">
         {% for post in posts %}
-          <div class="col-lg-4 mb-4">
+          <div class="col-lg-4 mb-4 d-flex align-items-stretch">
             <div class="card bg-dark text-white">
               {% if post.image %}
               <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
