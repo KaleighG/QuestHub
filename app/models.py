@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     profile_pic = models.ImageField(upload_to="media", blank=True, null=True)
     bio = models.CharField(max_length=250, null=True, blank=True)
     color_blind_mode = models.CharField(max_length=20, default="default")
-    friends = models.ManyToManyField("self", symmetrical=True)
+    friends = models.ManyToManyField("self", symmetrical=True, blank=True)
 
     def send_friend_request(self, to_user):
         Friend_Request.objects.create(

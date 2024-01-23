@@ -1,129 +1,117 @@
 {% extends 'base.html' %} {% load static %}{% block title %}Settings{% endblock %} 
 {% block content %}
 <style>
-    body{
-        margin-top:20px;
-    }
-    
-    .ui-w-80 {
-        width: 80px !important;
-        height: auto;
-    }
-    
-    .btn-default {
-        border-color: rgba(24,28,33,0.1);
-        background: rgba(0,0,0,0);
-        color: #4E5155;
-    }
-    
-    label.btn {
-        margin-bottom: 0;
-    }
-    
-    .btn-outline-primary {
-        border-color: #26B4FF;
-        background: transparent;
-        color: #26B4FF;
-    }
-    
-    .btn {
-        cursor: pointer;
-    }
-    
-    .text-light {
-        color: #babbbc !important;
-    }
-    
-    .btn-facebook {
-        border-color: rgba(0,0,0,0);
-        background: #3B5998;
-        color: #fff;
-    }
-    
-    .btn-instagram {
-        border-color: rgba(0,0,0,0);
-        background: #000;
-        color: #fff;
-    }
-    
-    .card {
-        background-clip: padding-box;
-        box-shadow: 0 1px 4px rgba(24,28,33,0.012);
-    }
+  body {
+    margin-top: 20px;
+  }
 
-  
-    
-    .row-bordered {
-        overflow: hidden;
-        background-image: url('{% static "images/parch.jpg" %}');
+  .text-light {
+    color: #2c2c2c !important; /* Dark color for text-light */
+  }
 
-    }
-    
-    .account-settings-fileinput {
-        position: absolute;
-        visibility: hidden;
-        width: 1px;
-        height: 1px;
-        opacity: 0;
-    }
-    .account-settings-links .list-group-item.active {
-        font-weight: bold !important;
-    }
-    html:not(.dark-style) .account-settings-links .list-group-item.active {
-        background: transparent !important;
-    }
-    .account-settings-multiselect ~ .select2-container {
-        width: 100% !important;
-    }
-    .light-style .account-settings-links .list-group-item {
-        padding: 0.85rem 1.5rem;
-        border-color: rgba(24, 28, 33, 0.03) !important;
-    }
-    .light-style .account-settings-links .list-group-item.active {
-        color: #4e5155 !important;
-    }
-    .material-style .account-settings-links .list-group-item {
-        padding: 0.85rem 1.5rem;
-        border-color: rgba(24, 28, 33, 0.03) !important;
-    }
-    .material-style .account-settings-links .list-group-item.active {
-        color: #4e5155 !important;
-    }
-    .dark-style .account-settings-links .list-group-item {
-        padding: 0.85rem 1.5rem;
-        border-color: rgba(255, 255, 255, 0.03) !important;
-    }
-    .dark-style .account-settings-links .list-group-item.active {
-        color: #fff !important;
-    }
-    .light-style .account-settings-links .list-group-item.active {
-        color: #4E5155 !important;
-    }
-    .light-style .account-settings-links .list-group-item {
-        padding: 0.85rem 1.5rem;
-        border-color: rgba(24,28,33,0.03) !important;
-    }
-    
-    .account-settings-links .list-group-item {
-      background-color: black;
-      color: white;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      }
-    
-      .account-settings-links .list-group-item:hover {
-        background-image: url('{% static "images/parch.jpg" %}');
+  #saveChangesBtn {
+    background-color: black;
+    color: white;
+  }
 
-        color: red;
-      }
+  /* Add the following style for all buttons */
+  .btn {
+    color: black;
+  }
+
+  .ui-w-80 {
+    width: 80px !important;
+    height: auto;
+  }
+
+  .btn-default {
+    border-color: rgba(24, 28, 33, 0.1);
+    background: rgba(0, 0, 0, 0);
+    color: #4E5155;
+  }
+
+  label.btn {
+    margin-bottom: 0;
+  }
+
+  .btn-outline-primary {
+    border-width: 2px;
+    border-color: black;
+    background: transparent;
+    color: black;
+  }
+
+  h4{
+    color: black;
+    font-family: "Bubblegum Sans", cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease; /* Add transition for smooth color change */
+  }
+
+  .btn {
+    cursor: pointer;
+  }
+
+  .text-light {
+    color: #babbbc !important;
+  }
+
+  .btn-facebook {
+    border-color: rgba(0, 0, 0, 0);
+    background: #3B5998;
+    color: #fff;
+  }
+
+  .btn-instagram {
+    border-color: rgba(0, 0, 0, 0);
+    background: #000;
+    color: #fff;
+  }
+
+  .card {
+    background-clip: padding-box;
+    box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
+    color: black;
+  }
+
+  .row-bordered {
+    overflow: hidden;
+    background-image: url('{% static "images/parch.jpg" %}');
+  }
+
+  .account-settings-fileinput {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .account-settings-links .list-group-item.active {
+    font-weight: bold !important;
+    color: black;
+  }
+
+  .account-settings-links .list-group-item {
+    background-color: black;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .account-settings-links .list-group-item:hover {
+    background-image: url('{% static "images/parch.jpg" %}');
+    color: red;
+  }
 </style>
 <div class="container light-style flex-grow-1 container-p-y">
 
-  <h4 class="font-weight-bold py-3 mb-4 text-center">
-    Account settings
-  </h4>
+  
 
     <div class="card overflow-hidden">
       <div class="row no-gutters row-bordered row-border-light">
+        <h4 class="font-weight-bold py-3 mb-4 text-center">
+          Account settings
+        </h4>
         <div class="col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links">
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-general">General</a>
@@ -350,13 +338,14 @@
             </div>
           </div>
         </div>
+        <div class="text-right mt-3">
+          <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+          <button type="button" class="btn btn-default" id="cancelBtn">Cancel</button>
+        </div>
       </div>
     </div>
 
-    <div class="text-right mt-3">
-      <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
-      <button type="button" class="btn btn-default" id="cancelBtn">Cancel</button>
-    </div>
+    
 
   </div>
   <script>

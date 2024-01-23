@@ -188,6 +188,16 @@
     
       }
 
+      .sidebar li.profile .name, .sidebar li.profile .designation {
+        font-size: 15px;
+        font-weight: 400;
+        color: black;
+        padding-bottom: 20px;
+        white-space: nowrap;
+        
+      }
+
+
       .sidebar input::placeholder {
         color: white;
       }
@@ -284,8 +294,7 @@
 
       .sidebar.open li.profile {
         width: 250px;
-        background-color: red;
-
+        height: 70px;
       }
 
       .sidebar.open .profile .profile_details {
@@ -307,7 +316,6 @@
         font-size: 15px;
         font-weight: 400;
         color: white;
-        margin-top: -15px;
         white-space: nowrap;
       }
 
@@ -366,7 +374,7 @@
   <body>
     <div class="sidebar">
       <div class="logo_details">
-        <i class="bi bi-dice-5" id="logo"></i>
+        <i class="bi bi-dice-5" id="logo" styling="padding-right: 20px"></i>
         <div class="logo_name">QuestHub</div>
         <a href="#"><i class="bx bx-menu" id="btn"></i> </a>
       </div>
@@ -403,13 +411,16 @@
           </a>
           <span class="tooltip">Message</span>
         </li>
-        <li>
-          <a href="/friends">
-            <i class="bi bi-plus-circle-dotted"></i>
-            <span class="link_name">Friends</span>
-          </a>
-          <span class="tooltip">Friends</span>
-        </li>
+        {% if request.user.is_authenticated %}
+
+          <li>
+            <a href="{% url "userprofile" request.user.id %}">              
+              <i class="bi bi-people"></i>
+              <span class="link_name">Friends</span>
+            </a>
+            <span class="tooltip">Friends</span>
+          </li>
+        {% endif %}
         <li>
           <a href="/create_post">
             <i class="bi bi-plus-circle-dotted"></i>
@@ -449,7 +460,6 @@
             {% endif %}
             <div class="profile_content">
               <div class="name">{{ request.user }}</div>
-              <div class="designation">{{ request.user.profile.role }}</div>
             </div>
           </div>
           <form action="{% url 'logout' %}" method="POST">
