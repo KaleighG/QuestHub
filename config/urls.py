@@ -50,7 +50,6 @@ urlpatterns = [
         name="decline_friend_request",
     ),
     path("remove_friend/<int:friend_id>/", remove_friend, name="remove_friend"),
-    path("update_profile/", update_profile, name="update_profile"),
     path("admin/", admin.site.urls),
     path("general/", general, name="general"),
     
