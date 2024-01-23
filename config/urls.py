@@ -50,7 +50,7 @@ urlpatterns = [
         decline_friend_request,
         name="decline_friend_request",
     ),
-    path("remove_friend/<int:friend_id>/", remove_friend, name="remove_friend"),path("friends/", friends, name="friends"),
+    path("remove_friend/<int:friend_id>/", remove_friend, name="remove_friend"),
     path("admin/", admin.site.urls),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
