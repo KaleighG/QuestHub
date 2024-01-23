@@ -30,6 +30,8 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            user = User.objects.get(username=request.POST.get("username"))
+            UserProfile.objects.create(user=user, role="User")
             return redirect("login")
     else:
         return render(request, "register.html", {"form": CreateUserForm()})
