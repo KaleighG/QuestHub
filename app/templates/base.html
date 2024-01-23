@@ -423,14 +423,10 @@
         {% endif %} {% if user.is_authenticated %}
         <li class="profile">
           <div class="profile_details">
-            {% if request.user.profile.profile_pic %}
-             <img src="{{ request.user_profile.profile_pic.url }}" alt="profile image" />
-            {% endif %}
+            <img src="{{request.user.profile.profile_pic.url}}" alt="profile pic" />
             <div class="profile_content">
-              <div class="name">{{ user_profile.user }}</div>
-              {% if request.user.profile.role %}
-              <div class="designation">{{ user_profile.role }}</div>
-              {% endif %}
+              <div class="name">{{ request.user }}</div>
+              <div class="designation">{{ request.user.profile.role }}</div>
             </div>
           </div>
           <form action="{% url 'logout' %}" method="POST">

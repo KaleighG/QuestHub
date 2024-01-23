@@ -1,6 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %}
 {% block title %}Welcome{% endblock %}
 {% block content %}
+  <style>
+    h1.mb-4.text-center {
+      font-family: 'Bubblegum Sans', cursive; /* Use a bubble letters font, or replace with your desired font */
+      color: white; /* Set the text color to white */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for better visibility */
+    }
+
+    .card h2{
+      color: black;
+      font-family: 'Bubblegum Sans', cursive; /* Use a bubble letters font, or replace with your desired font */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow for better visibility */
+    }
+
+    .card a{
+      color: red;
+    }
+    .card {
+      background-image: url('{% static "images/parch.jpg" %}');
+      padding: 10%;
+      height: 450px; /* Adjust the height value as needed */
+      object-fit: cover; /* Maintain aspect ratio and cover the container */
+      width: 400px; /* Ensure the image takes the full width of the container */
+    }
+
+    .card-img-top {
+      height: 300px;
+      width: 300px;
+    } 
+  </style>
+
   <div class="container mt-5">
     <h1 class="mb-4 text-center">All Posts</h1>
     <div class="d-flex justify-content-center align-items-center">
@@ -8,13 +38,13 @@
         <div class="row">
           {% for post in posts %}
             <div class="col-lg-4 mb-4">
-              <div class="card bg-dark text-white">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
-                {% endif %}     
+              <div class="card bg-dark text-white">     
                 <div class="card-body">
                   <p class="card-text">{{ post.creator }}</p>
                   <div class="post-caption" data-full-caption="{{ post.caption }}">
+                    {% if post.image %}
+                      <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
+                    {% endif %}
                     {% if post.caption|length > 50 %}
                       <div class="truncated-caption">
                         {{ post.caption|truncatechars:50 }}
@@ -37,12 +67,12 @@
       <div class="row">
         {% for post in posts %}
           <div class="col-lg-4 mb-4 d-flex align-items-stretch">
-            <div class="card bg-dark text-white">
+            <div class="card">
               {% if post.image %}
               <img src="{{ post.image.url }}" class="card-img-top" alt="Post Image">
               {% endif %}     
               <div class="card-body">
-                <p class="card-text">{{ post.creator }}</p>
+                <h2 class="card-text">{{ post.creator }}</h2>
                 <div class="post-caption" data-full-caption="{{ post.caption }}">
                   {% if post.caption|length > 50 %}
                     <div class="truncated-caption">
