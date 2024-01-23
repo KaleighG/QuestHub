@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block title %}Profile{% endblock %} 
 {% block content %}
+<<<<<<< HEAD
 <style>
     .container .mt-5 {
         position:absolute;
@@ -11,4 +12,7 @@
 <div class="container mt-5">{{ request.user.profile.role }}</div>
 <div class="container mt-5">{{ request.user.profile.bio }}</div>
 
+=======
+<div class="container mt-5"><h1 >{{ user_profile.user }}</h1></div>
+>>>>>>> 1709fd346a5af09f96f3fd697b5138b283a7f52f
 {% endblock %}
