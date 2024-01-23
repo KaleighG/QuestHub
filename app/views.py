@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from app.models import *
 from django.db.models import Q
+import openai
 
 # Create your views here.
 
@@ -113,3 +114,27 @@ def delete_message(request, recipient_id):
     for message in messages:
         message.delete()
     return redirect('message')
+
+
+def chatgpt_image_creator(request):
+    if request.method == 'POST':
+        form = ChatGPTForm(request.POST)
+        if form.is_valid():
+            input_text = form.cleaned_data['input_text']
+
+            # Call OpenAI API to generate image using input_text
+            # Remember to replace 'your-api-key' with your actual OpenAI API key
+            openai.api_key = 'your-api-key'
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=input_text,
+                max_tokens=150
+            )
+
+            generated_image = response['choices'][0]['text']
+            return render(request, 'yourapp/result.html', {'generated_image': generated_image})
+
+    else:
+        form = ChatGPTForm()
+
+    return render(request, 'yourapp/chatgpt_form.html', {'form': form})

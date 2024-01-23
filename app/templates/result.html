@@ -1,0 +1,17 @@
+<!-- yourapp/templates/yourapp/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Image Result</title>
+</head>
+<body>
+    <h1>ChatGPT Image Result</h1>
+
+    <p>Generated Image:</p>
+    <img src="{{ generated_image }}" alt="Generated Image">
+
+    <p><a href="{% url 'chatgpt_image_creator' %}">Back to Form</a></p>
+</body>
+</html>
