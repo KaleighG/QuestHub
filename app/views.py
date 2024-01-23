@@ -35,9 +35,8 @@ def messages(request):
     return render(request, "message.html", {"messages": latest_messages})
 
 
-def profile(request):
-    # Get the profile of the currently logged-in user
-    user_profile = UserProfile.objects.get(user=request.user)
+def profile(request, user_id):
+    user_profile = UserProfile.objects.get(user__id=user_id)
     return render(request, "profile.html", {"user_profile": user_profile})
 
 
