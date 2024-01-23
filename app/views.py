@@ -125,31 +125,19 @@ def send_friend_request(request, user_id):
 def accept_friend_request(request, user_id):
     friend_request = Friend_Request.objects.get(sender=user_id, recipient=request.user)
     friend_request.recipient.profile.accept_friend_request(friend_request)
-<<<<<<< HEAD
     return redirect ("profile.html", {"friend_request": friend_request})
 
-=======
-    return redirect("userprofile", user_id=request.user.id)
->>>>>>> d554b16e357aac118ba94d28807de1a9dda5e612
 
 
 def decline_friend_request(request, user_id):
     friend_request = Friend_Request.objects.get(sender=user_id, recipient=request.user)
     request.user.profile.decline_friend_request(friend_request)
-<<<<<<< HEAD
     return redirect ("profile.html")
-=======
-    return redirect("userprofile", user_id=request.user.id)
->>>>>>> d554b16e357aac118ba94d28807de1a9dda5e612
 
 def remove_friend(request, friend_id):
     friendObj = Friend.objects.get(id=friend_id)
     friendObj.delete()
-<<<<<<< HEAD
     return redirect ("profile.html")
-=======
-    return redirect("userprofile", user_id=request.user.id)
->>>>>>> d554b16e357aac118ba94d28807de1a9dda5e612
 
 def general(request):
     if request.method == "POST":
